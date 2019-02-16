@@ -6,4 +6,4 @@ You can play the game here: https://geekpulp.co.nz/apps/colour-game/index.html
 ## How you can help
 * If you find something wrong you can [submit a bug](https://github.com/geekpulp/colour-game/issues/new?assignees=&labels=&template=bug_report.md&title=)
 * If you thinking of a cool feature to add [submit a feature request](https://github.com/geekpulp/colour-game/issues/new?assignees=&labels=&template=feature_request.md&title=)
-* If you'd like to make a code contribution create a [pull request](https://github.com/geekpulp/colour-game/pulls) and lets make the magic happen
+* If you'd like to make a code contribution create a [pull request](https://github.com/geekpulp/colour-game/pulls) and let's make the magic happen
