@@ -1,3 +1,57 @@
+var difficulty = 6;
+var colours = generateRandomColours( difficulty );
+var squares = document.querySelectorAll( ".square" );
+var pickedColour = pickRandomColour();
+var colourDisplay = document.querySelector( "#colourDisplay" );
+colourDisplay.textContent = pickedColour;
+var messageDisplay = document.querySelector( "#message" );
+var title = document.querySelector( "h1" );
+var newColourButton = document.querySelector( "#newColourButton" );
+
+var easyButton = document.querySelector( "#easyButton" );
+easyButton.addEventListener( "click", function() {
+  playEasy();
+} );
+
+var hardButton = document.querySelector( "#hardButton" );
+hardButton.addEventListener( "click", function() {
+  playHard();
+} );
+
+function playEasy() {
+  difficulty = 3;
+  easyButton.classList.add( "selectedButton" );
+  hardButton.classList.remove( "selectedButton" );
+  colours = generateRandomColours( difficulty );
+  pickedColour = pickRandomColour();
+  colourDisplay.textContent = pickedColour;
+  for ( let index = 0; index < squares.length; index++ ) {
+    if ( colours[ index ] ) {
+      squares[ index ].style.background = colours[ index ];
+    } else {
+      squares[ index ].style.display = "none";
+    }
+  }
+}
+
+function playHard() {
+  difficulty = 6;
+  easyButton.classList.remove( "selectedButton" );
+  hardButton.classList.add( "selectedButton" );
+  colours = generateRandomColours( difficulty );
+  pickedColour = pickRandomColour();
+  colourDisplay.textContent = pickedColour;
+  for ( let index = 0; index < squares.length; index++ ) {
+    squares[ index ].style.background = colours[ index ];
+    squares[ index ].style.display = "block";
+  }
+}
+
+newColourButton.addEventListener( "click", function() {
+  loadTheBoard();
+} );
+
+loadTheBoard();
 for ( let index = 0; index < squares.length; index++ ) {
   squares[ index ].style.backgroundColor = colours[ index ];
   squares[ index ].addEventListener( "click", function() {
