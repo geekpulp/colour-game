@@ -58,13 +58,13 @@ for ( let index = 0; index < squares.length; index++ ) {
     var clickedColour = this.style.backgroundColor;
     console.log( clickedColour + " vs " + pickedColour );
     if ( clickedColour === pickedColour ) {
-      messageDisplay.textContent = "Correct!";
-      newColourButton.textContent = "Play again?";
+      messageDisplay.textContent = "✅";
+      newColourButton.textContent = "Refresh";
       changeSquaresToWinningColour( clickedColour );
       title.style.backgroundColor = clickedColour;
     } else {
       this.style.background = "#232323";
-      messageDisplay.textContent = "Try again";
+      messageDisplay.textContent = "❌";
     }
   } );
 }
@@ -118,6 +118,6 @@ function loadTheBoard() {
   changeSquaresToRandomColours( colours );
   colourDisplay.textContent = pickedColour;
   title.style.backgroundColor = "#232323";
-  newColourButton.textContent = "New Colour";
+  newColourButton.textContent = "Refresh";
   messageDisplay.textContent = "";
 }
