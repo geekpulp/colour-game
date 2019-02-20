@@ -20,7 +20,7 @@ function setDifficulty() {
       modeButtons[ 0 ].classList.remove( "selectedButton" );
       modeButtons[ 1 ].classList.remove( "selectedButton" );
       this.classList.add( "selectedButton" );
-      if ( this.textContent == "Easy" ) {
+      if ( this.textContent === "Easy" ) {
         playGame( 3 );
       } else {
         playGame( 6 );
@@ -34,7 +34,7 @@ function playGame( mode ) {
   colours = generateRandomColours( mode );
   pickedColour = pickRandomColour( colours );
   colourDisplay.textContent = pickedColour;
-  if ( mode == 3 ) {
+  if ( mode === 3 ) {
     for ( let index = 0; index < squares.length; index++ ) {
       if ( colours[ index ] ) {
         squares[ index ].style.background = colours[ index ];
@@ -107,7 +107,6 @@ function generateRandomColours( numberOfColours ) {
   var collectionOfColours = [];
   for ( let index = 0; index < numberOfColours; index++ ) {
     collectionOfColours[ index ] = randomColour();
-    console.log( collectionOfColours[ index ] );
   }
   return collectionOfColours;
 }
