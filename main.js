@@ -6,68 +6,81 @@ var colourDisplay = document.querySelector( "#colourDisplay" );
 colourDisplay.textContent = pickedColour;
 var messageDisplay = document.querySelector( "#message" );
 var title = document.querySelector( "h1" );
-var newColourButton = document.querySelector( "#newColourButton" );
+var resetButton = document.querySelector( "#resetButton" );
+var modeButtons = document.querySelectorAll( ".mode" );
 
-var easyButton = document.querySelector( "#easyButton" );
-easyButton.addEventListener( "click", function() {
-  playEasy();
-} );
+setDifficulty();
+processInput();
 
-var hardButton = document.querySelector( "#hardButton" );
-hardButton.addEventListener( "click", function() {
-  playHard();
-} );
 
-function playEasy() {
-  difficulty = 3;
-  easyButton.classList.add( "selectedButton" );
-  hardButton.classList.remove( "selectedButton" );
-  colours = generateRandomColours( difficulty );
-  pickedColour = pickRandomColour();
+// sets the difficulty of the game
+function setDifficulty() {
+  for ( var i = 0; i < modeButtons.length; i++ ) {
+    modeButtons[ i ].addEventListener( "click", function() {
+      modeButtons[ 0 ].classList.remove( "selectedButton" );
+      modeButtons[ 1 ].classList.remove( "selectedButton" );
+      this.classList.add( "selectedButton" );
+      if ( this.textContent == "Easy" ) {
+        playGame( 3 );
+      } else {
+        playGame( 6 );
+      }
+    } );
+  }
+}
+
+//loads the game board ready for the player to play
+function playGame( mode ) {
+  colours = generateRandomColours( mode );
+  pickedColour = pickRandomColour( colours );
   colourDisplay.textContent = pickedColour;
-  for ( let index = 0; index < squares.length; index++ ) {
-    if ( colours[ index ] ) {
+  if ( mode == 3 ) {
+    for ( let index = 0; index < squares.length; index++ ) {
+      if ( colours[ index ] ) {
+        squares[ index ].style.background = colours[ index ];
+      } else {
+        squares[ index ].style.display = "none";
+      }
+    }
+  } else {
+    for ( let index = 0; index < squares.length; index++ ) {
       squares[ index ].style.background = colours[ index ];
-    } else {
-      squares[ index ].style.display = "none";
+      squares[ index ].style.display = "block";
     }
   }
+  changeSquaresToRandomColours( colours );
+  title.style.backgroundColor = "#232323";
+  resetButton.textContent = "Reset";
+  messageDisplay.textContent = "";
 }
 
-function playHard() {
-  difficulty = 6;
-  easyButton.classList.remove( "selectedButton" );
-  hardButton.classList.add( "selectedButton" );
-  colours = generateRandomColours( difficulty );
-  pickedColour = pickRandomColour();
-  colourDisplay.textContent = pickedColour;
+//processes input from the user on the game board
+function processInput() {
   for ( let index = 0; index < squares.length; index++ ) {
-    squares[ index ].style.background = colours[ index ];
-    squares[ index ].style.display = "block";
+    squares[ index ].style.backgroundColor = colours[ index ];
+    squares[ index ].addEventListener( "click", function() {
+      var clickedColour = this.style.backgroundColor;
+      if ( clickedColour === pickedColour ) {
+        messageDisplay.textContent = "✅";
+        resetButton.textContent = "Play again?";
+        changeSquaresToWinningColour( clickedColour );
+        title.style.backgroundColor = clickedColour;
+      } else {
+        this.style.background = "#232323";
+        messageDisplay.textContent = "❌";
+      }
+    } );
   }
 }
 
-newColourButton.addEventListener( "click", function() {
-  loadTheBoard();
+//resets the game board to a fresh start
+resetButton.addEventListener( "click", function() {
+  if ( modeButtons[ 0 ].classList.contains( "selectedButton" ) ) {
+    playGame( 3 );
+  } else {
+    playGame( 6 );
+  }
 } );
-
-loadTheBoard();
-for ( let index = 0; index < squares.length; index++ ) {
-  squares[ index ].style.backgroundColor = colours[ index ];
-  squares[ index ].addEventListener( "click", function() {
-    var clickedColour = this.style.backgroundColor;
-    console.log( clickedColour + " vs " + pickedColour );
-    if ( clickedColour === pickedColour ) {
-      messageDisplay.textContent = "✅";
-      newColourButton.textContent = "Refresh";
-      changeSquaresToWinningColour( clickedColour );
-      title.style.backgroundColor = clickedColour;
-    } else {
-      this.style.background = "#232323";
-      messageDisplay.textContent = "❌";
-    }
-  } );
-}
 
 // Sets the colour of each square to a single colour
 function changeSquaresToWinningColour( colour ) {
@@ -105,19 +118,4 @@ function randomColour() {
     green = Math.floor( Math.random() * 256 ),
     blue = Math.floor( Math.random() * 256 );
   return "rgb(" + red + ", " + green + ", " + blue + ")";
-}
-
-// loads the board with fresh colours ad resets the display to match
-function loadTheBoard() {
-  if ( easyButton.classList.contains( "selectedButton" ) ) {
-    playEasy();
-  } else {
-    playHard();
-  }
-  pickedColour = pickRandomColour();
-  changeSquaresToRandomColours( colours );
-  colourDisplay.textContent = pickedColour;
-  title.style.backgroundColor = "#232323";
-  newColourButton.textContent = "Refresh";
-  messageDisplay.textContent = "";
 }
