@@ -9,8 +9,8 @@ var title = document.querySelector( "h1" );
 var resetButton = document.querySelector( "#resetButton" );
 var modeButtons = document.querySelectorAll( ".mode" );
 
+reset();
 setDifficulty();
-processInput();
 
 
 // sets the difficulty of the game
@@ -37,14 +37,14 @@ function playGame( mode ) {
   if ( mode === 3 ) {
     for ( let index = 0; index < squares.length; index++ ) {
       if ( colours[ index ] ) {
-        squares[ index ].style.background = colours[ index ];
+        squares[ index ].style.backgroundColor = colours[ index ];
       } else {
         squares[ index ].style.display = "none";
       }
     }
   } else {
     for ( let index = 0; index < squares.length; index++ ) {
-      squares[ index ].style.background = colours[ index ];
+      squares[ index ].style.backgroundColor = colours[ index ];
       squares[ index ].style.display = "block";
     }
   }
@@ -52,12 +52,13 @@ function playGame( mode ) {
   title.style.backgroundColor = "#232323";
   resetButton.textContent = "Reset";
   messageDisplay.textContent = "";
+  processInput();
 }
 
 //processes input from the user on the game board
 function processInput() {
   for ( let index = 0; index < squares.length; index++ ) {
-    squares[ index ].style.backgroundColor = colours[ index ];
+    // squares[ index ].style.backgroundColor = colours[ index ];
     squares[ index ].addEventListener( "click", function() {
       var clickedColour = this.style.backgroundColor;
       if ( clickedColour === pickedColour ) {
@@ -73,13 +74,17 @@ function processInput() {
   }
 }
 
-//resets the game board to a fresh start
-resetButton.addEventListener( "click", function() {
+function reset() {
   if ( modeButtons[ 0 ].classList.contains( "selectedButton" ) ) {
     playGame( 3 );
   } else {
     playGame( 6 );
   }
+}
+
+//resets the game board to a fresh start
+resetButton.addEventListener( "click", function() {
+  reset();
 } );
 
 // Sets the colour of each square to a single colour
