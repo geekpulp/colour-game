@@ -1,31 +1,22 @@
-var difficulty = 6;
-var colours = generateRandomColours( difficulty );
+// var difficulty = 6;
+var colours;
+var pickedColour;
 var squares = document.querySelectorAll( ".square" );
-var pickedColour = pickRandomColour();
 var colourDisplay = document.querySelector( "#colourDisplay" );
-colourDisplay.textContent = pickedColour;
 var messageDisplay = document.querySelector( "#message" );
 var title = document.querySelector( "h1" );
 var resetButton = document.querySelector( "#resetButton" );
 var modeButtons = document.querySelectorAll( ".mode" );
 
+//resets the board on load
 reset();
-setDifficulty();
 
-
-// sets the difficulty of the game
-function setDifficulty() {
-  for ( var i = 0; i < modeButtons.length; i++ ) {
-    modeButtons[ i ].addEventListener( "click", function() {
-      modeButtons[ 0 ].classList.remove( "selectedButton" );
-      modeButtons[ 1 ].classList.remove( "selectedButton" );
-      this.classList.add( "selectedButton" );
-      if ( this.textContent === "Easy" ) {
-        playGame( 3 );
-      } else {
-        playGame( 6 );
-      }
-    } );
+//initiates a reset of the board depending on the difficulty selected
+function reset() {
+  if ( modeButtons[ 0 ].classList.contains( "selectedButton" ) ) {
+    playGame( 3 );
+  } else {
+    playGame( 6 );
   }
 }
 
@@ -58,7 +49,6 @@ function playGame( mode ) {
 //processes input from the user on the game board
 function processInput() {
   for ( let index = 0; index < squares.length; index++ ) {
-    // squares[ index ].style.backgroundColor = colours[ index ];
     squares[ index ].addEventListener( "click", function() {
       var clickedColour = this.style.backgroundColor;
       if ( clickedColour === pickedColour ) {
@@ -72,13 +62,22 @@ function processInput() {
       }
     } );
   }
+  setDifficulty();
 }
 
-function reset() {
-  if ( modeButtons[ 0 ].classList.contains( "selectedButton" ) ) {
-    playGame( 3 );
-  } else {
-    playGame( 6 );
+// sets the difficulty of the game
+function setDifficulty() {
+  for ( var i = 0; i < modeButtons.length; i++ ) {
+    modeButtons[ i ].addEventListener( "click", function() {
+      modeButtons[ 0 ].classList.remove( "selectedButton" );
+      modeButtons[ 1 ].classList.remove( "selectedButton" );
+      this.classList.add( "selectedButton" );
+      if ( this.textContent === "Easy" ) {
+        playGame( 3 );
+      } else {
+        playGame( 6 );
+      }
+    } );
   }
 }
 
