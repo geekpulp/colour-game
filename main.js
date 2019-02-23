@@ -78,7 +78,7 @@ function processInput() {
 
 // sets the difficulty of the game
 function setDifficulty() {
-  difficultySelector.addEventListener( "ValueChange", function() {
+  difficultySelector.addEventListener( "input", function() {
     if ( this.options[ this.selectedIndex ].value === "Easy" ) {
       gameDifficulty = "Easy";
     } else {
@@ -89,7 +89,7 @@ function setDifficulty() {
 }
 
 function setMode() {
-  modeSelector.addEventListener( "ValueChange", function() {
+  modeSelector.addEventListener( "input", function() {
     if ( this.options[ this.selectedIndex ].value === "RGB" ) {
       gameMode = "RGB";
       console.log( "RGB game mode" );
