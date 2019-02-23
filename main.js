@@ -12,12 +12,12 @@ var gameMode = modeSelector.options[ modeSelector.selectedIndex ].value;
 var gameDifficulty = difficultySelector.options[ difficultySelector.selectedIndex ].value;
 
 //resets the board on load
-setMode();
-setDifficulty();
 reset();
 
 //initiates a reset of the board depending on the difficulty selected
 function reset() {
+  gameMode = modeSelector.options[ modeSelector.selectedIndex ].value;
+  gameDifficulty = difficultySelector.options[ difficultySelector.selectedIndex ].value;
   if ( gameDifficulty === "Easy" ) {
     playGame( 3 );
   } else {
@@ -27,7 +27,6 @@ function reset() {
 
 //loads the game board ready for the player to play
 function playGame( difficultyValue ) {
-
   colours = generateRandomColours( difficultyValue );
   pickedColour = pickRandomColour( colours );
   colourDisplay.textContent = pickedColour;
@@ -79,7 +78,7 @@ function processInput() {
 
 // sets the difficulty of the game
 function setDifficulty() {
-  difficultySelector.addEventListener( "click", function() {
+  difficultySelector.addEventListener( "ValueChange", function() {
     if ( this.options[ this.selectedIndex ].value === "Easy" ) {
       gameDifficulty = "Easy";
     } else {
@@ -90,7 +89,7 @@ function setDifficulty() {
 }
 
 function setMode() {
-  modeSelector.addEventListener( "click", function() {
+  modeSelector.addEventListener( "ValueChange", function() {
     if ( this.options[ this.selectedIndex ].value === "RGB" ) {
       gameMode = "RGB";
       console.log( "RGB game mode" );
