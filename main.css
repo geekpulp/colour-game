@@ -57,7 +57,7 @@ h1 {
   display: none;
 }
 
-button {
+button, select {
   border: none;
   background: none;
   text-transform: uppercase;

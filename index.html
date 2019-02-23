@@ -15,8 +15,14 @@
   <div id="controlBar">
     <button id="resetButton">Reset</button>
     <span id="message"></span>
-    <button class="mode">Easy</button>
-    <button class="mode selectedButton">Hard</button>
+    <select name="difficulty" id="difficultySetting">
+      <option value="Easy">Easy</option>
+      <option value="Hard">Hard</option>
+    </select>
+    <select name="mode" id="gameMode">
+      <option value="RGB">RGB</option>
+      <option value="Hex">Hex</option>
+    </select>
   </div>
 
   <div id="container">
