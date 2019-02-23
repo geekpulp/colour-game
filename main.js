@@ -12,6 +12,8 @@ var gameMode = modeSelector.options[ modeSelector.selectedIndex ].value;
 var gameDifficulty = difficultySelector.options[ difficultySelector.selectedIndex ].value;
 
 //resets the board on load
+setDifficulty();
+setMode();
 reset();
 
 //initiates a reset of the board depending on the difficulty selected
@@ -79,7 +81,7 @@ function processInput() {
 // sets the difficulty of the game
 function setDifficulty() {
   difficultySelector.addEventListener( "input", function() {
-    if ( this.options[ this.selectedIndex ].value === "Easy" ) {
+    if ( this.value === "Easy" ) {
       gameDifficulty = "Easy";
     } else {
       gameDifficulty = "Hard";
@@ -90,12 +92,12 @@ function setDifficulty() {
 
 function setMode() {
   modeSelector.addEventListener( "input", function() {
-    if ( this.options[ this.selectedIndex ].value === "RGB" ) {
+    if ( this.value === "RGB" ) {
       gameMode = "RGB";
-      console.log( "RGB game mode" );
+      console.log( "********************RGB game mode" );
     } else {
       gameMode = "Hex";
-      console.log( "Hex game mode" );
+      console.log( "********************Hex game mode" );
     }
     reset();
   } );
